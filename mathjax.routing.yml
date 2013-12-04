@@ -1,0 +1,6 @@
+mathjax.settings:
+  path: '/admin/config/content/mathjax'
+  defaults:
+    _form: '\Drupal\mathjax\Form\MathjaxSettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
