@@ -85,40 +85,6 @@ function mathjax_init() {
 }
 
 /**
- * Implements hook_filter_info().
- *
- * Defines a MathJax filter.
- */
-function mathjax_filter_info() {
-  $filters['filter_mathjax'] = array(
-    'title' => t('MathJax'),
-    'description' => t('Mathematics inside the <a href="@url">configured delimiters</a> is rendered by MathJax.', array('@url' => url('admin/config/content/mathjax'))),
-    'process callback'  => '_filter_mathjax_process',
-    'settings callback' => '_filter_mathjax_settings',
-    'tips callback' => '_filter_mathjax_tips',
-  );
-  return $filters;
-}
-
-/**
- * Mathjax filter process callback.
- */
-function _filter_mathjax_process($text, $filter, $format) {
-  return '<div class="tex2jax">' . $text . '</div>';
-}
-
-/**
- * Filter tips callback for the mathjax filter.
- */
-function _filter_mathjax_tips($filter, $format, $long = FALSE) {
-  return t('<span class="tex2jax_ignore">Mathematics inside the <a href="@url">configured delimiters</a> is
-    rendered by MathJax. The default math delimiters are $$...$$ and \[...\] for
-    displayed mathematics, and $...$ and \(...\) for in-line mathematics.</span>',
-      array('@url' => url('admin/config/content/mathjax'))
-  );
-}
-
-/**
  * Implements hook_permission().
  */
 function mathjax_permission() {
