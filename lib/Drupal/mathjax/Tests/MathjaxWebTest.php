@@ -2,13 +2,17 @@
 
 /**
  * @file
- * Web test file for MathJax module.
+ * Definition of Drupal\mathjax\Tests\MathjaxWebTest.
  */
 
+namespace Drupal\mathjax\Tests;
+
+use Drupal\simpletest\WebTestBase;
+
 /**
- * Web test case for the module.
+ * Configuration test case for the module.
  */
-class MathjaxWebTestCase extends DrupalWebTestCase {
+class MathjaxWebTest extends WebTestBase {
 
   /**
    * Provide info on these tests to the admin interface.
