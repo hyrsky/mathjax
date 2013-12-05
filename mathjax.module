@@ -69,16 +69,18 @@ function mathjax_page_build(&$page) {
     '#type' => 'markup',
     '#markup' => '<script type="text/x-mathjax-config">' . $config_string . '</script>',
   );
-  drupal_add_html_head($config_string_wrapped, 'mathjax-config');
+  $page['#attached']['drupal_add_html_head'] = array(
+    array($config_string_wrapped, 'mathjax-config'),
+  );
   if (!is_null($config->get('mathjax_use_cdn')) ? $config->get('mathjax_use_cdn') : TRUE) {
     $cdn_url = !is_null($config->get('mathjax_cdn_url')) ? $config->get('mathjax_cdn_url') : mathjax_default('cdn url');
-    drupal_add_js($cdn_url, 'external');
+    $page['#attached']['js'][$cdn_url] = array('every_page' => TRUE, 'type' => 'external');
   }
   else {
     // Use the local library.
     $library = DRUPAL_ROOT . $base_path . libraries_get_path('mathjax') . '/MathJax.js';
     if (file_exists($library)) {
-      drupal_add_js($base_path . libraries_get_path('mathjax') . '/MathJax.js?config=TeX-AMS-MML_HTMLorMML', 'external');
+      $page['#attached']['js'][$base_path . libraries_get_path('mathjax') . '/MathJax.js?config=TeX-AMS-MML_HTMLorMML'] = array('every_page' => TRUE, 'type' => 'external');
     }
     else {
       // Throw an error.
