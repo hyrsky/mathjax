@@ -26,10 +26,17 @@ class MathjaxWebTest extends WebTestBase {
   }
 
   /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = array('mathjax');
+
+  /**
    * Set up the test evironment.
    */
   protected function setUp() {
-    parent::setUp('mathjax');
+    parent::setUp();
 
     $this->administrator = $this->drupalCreateUser(array(
       'administer mathjax',
