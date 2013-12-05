@@ -7,9 +7,10 @@
 /**
  * Default values for MathJax configuration. May be overridden in the config.
  *
- * @param $parameter
+ * @param string $parameter
  *   Decides which default config to fetch. Either 'cdn url' or 'config string'.
- * @return
+ *
+ * @return string
  *   The default configuration.
  */
 function mathjax_default($parameter) {
@@ -42,7 +43,7 @@ MathJax.Hub.Config({
 function mathjax_help($path, $arg) {
   switch ($path) {
     // Main module help for the mathjax module.
-    case 'admin/settings/mathjax':
+    case 'admin/config/content/mathjax':
       return t('MathJax allows you to include mathematics in your web pages, either using TeX and LaTeX notation, or as MathML, and you can even use both in the same document. Go to the <a href="@url">MathJax website</a> for more information.', array('@url' => url('http://www.mathjax.org/')));
 
     case 'admin/help#mathjax':
@@ -51,24 +52,26 @@ function mathjax_help($path, $arg) {
 }
 
 /**
- * Implements hook_init().
+ * Implements hook_page_build().
  */
-function mathjax_init() {
+function mathjax_page_build(&$page) {
   global $base_path;
-  if(variable_get('mathjax_config_type', 0) == 0) {
+  $config = Drupal::config('mathjax.settings');
+
+  if ($config->get('mathjax_config_type') == 0) {
     $config_string = mathjax_default('config string');
   }
   else {
-    $config_string = variable_get('mathjax_config_string', mathjax_default('config string'));
+    $config_string = !is_null($config->get('mathjax_config_string')) ? $config->get('mathjax_config_string') : mathjax_default('config string');
   }
   // Load Mathjax.
-  $config = array(
+  $config_string_wrapped = array(
     '#type' => 'markup',
     '#markup' => '<script type="text/x-mathjax-config">' . $config_string . '</script>',
   );
-  drupal_add_html_head($config, 'mathjax-config');
-  if (variable_get('mathjax_use_cdn', TRUE)) {
-    $cdn_url = variable_get('mathjax_cdn_url', mathjax_default('cdn url'));
+  drupal_add_html_head($config_string_wrapped, 'mathjax-config');
+  if (!is_null($config->get('mathjax_use_cdn')) ? $config->get('mathjax_use_cdn') : TRUE) {
+    $cdn_url = !is_null($config->get('mathjax_cdn_url')) ? $config->get('mathjax_cdn_url') : mathjax_default('cdn url');
     drupal_add_js($cdn_url, 'external');
   }
   else {
@@ -94,7 +97,6 @@ function mathjax_permission() {
     ),
   );
 }
-
 
 /**
  * Implements hook_menu().
