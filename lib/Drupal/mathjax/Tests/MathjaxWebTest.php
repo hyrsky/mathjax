@@ -83,7 +83,7 @@ class MathjaxWebTest extends WebTestBase {
       'mathjax_config_string' => $custom,
     );
 
-    $this->drupalPost($path, $edit, t('Save configuration'));
+    $this->drupalPostForm($path, $edit, t('Save configuration'));
     $this->assertText('Enter a JavaScript configuration string as documented');
     $this->assertRaw('<script type="text/x-mathjax-config">' . $custom . '</script>', 'Custom configuration string found.');
 

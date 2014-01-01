@@ -3,4 +3,4 @@ mathjax.settings:
   defaults:
     _form: '\Drupal\mathjax\Form\MathjaxSettingsForm'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer mathjax'
