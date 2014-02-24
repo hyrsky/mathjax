@@ -32,7 +32,7 @@ MathJax.Hub.Config({
   messageStyle: 'none'
 });
 ";
-    default :
+    default:
       return;
   }
 }
@@ -71,6 +71,9 @@ function mathjax_page_build(&$page) {
   );
   $page['#attached']['drupal_add_html_head'] = array(
     array($config_string_wrapped, 'mathjax-config'),
+  );
+  $page['#attached']['js'][drupal_get_path('module', 'mathjax') . '/mathjax.js'] = array(
+    'every_page' => TRUE,
   );
   if (!is_null($config->get('mathjax_use_cdn')) ? $config->get('mathjax_use_cdn') : TRUE) {
     $cdn_url = !is_null($config->get('mathjax_cdn_url')) ? $config->get('mathjax_cdn_url') : mathjax_default('cdn url');
