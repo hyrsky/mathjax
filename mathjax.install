@@ -22,8 +22,9 @@ function mathjax_uninstall() {
  */
 function mathjax_requirements($phase) {
   $requirements = array();
+  $config = Drupal::config('mathjax.settings');
 
-  if ($phase == 'runtime' && !variable_get('mathjax_use_cdn', TRUE)) {
+  if ($phase == 'runtime' && !$config->get('mathjax_use_cdn', TRUE)) {
     $requirements['mathjax'] = array(
       'title' => t('MathJax'),
       'value' => t('Installed correctly'),
@@ -55,16 +56,4 @@ function _mathjax_requirements_isinstalled() {
   $jsp = file_exists($jspath);
 
   return $jsp;
-}
-
-/**
- * Implements hook_update_N().
- *
- * Removes deprecated configuration variables.
- */
-function mathjax_update_7001() {
-  variable_del('mathjax_enabled');
-  variable_del('mathjax_pages');
-  variable_del('mathjax_active_type');
-  variable_set('mathjax_config_type', 1);
 }
