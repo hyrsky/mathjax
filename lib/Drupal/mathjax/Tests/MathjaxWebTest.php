@@ -30,7 +30,7 @@ class MathjaxWebTest extends WebTestBase {
    *
    * @var array
    */
-  public static $modules = array('mathjax');
+  public static $modules = array('mathjax', 'filter');
 
   /**
    * Set up the test evironment.
@@ -40,6 +40,7 @@ class MathjaxWebTest extends WebTestBase {
 
     $this->administrator = $this->drupalCreateUser(array(
       'administer mathjax',
+      'administer filters',
     ));
   }
 
@@ -61,6 +62,8 @@ class MathjaxWebTest extends WebTestBase {
   public function testAdmin() {
 
     $this->drupalLogin($this->administrator);
+    $this->drupalGet('admin/config/content/formats/add');
+    $this->assertText('Mathematics inside the configured delimiters is rendered by MathJax');
     $this->drupalGet('admin/config/content/mathjax');
     $this->assertTitle('MathJax | Drupal', 'Page title set.');
     $this->assertText('MathJax CDN URL');
