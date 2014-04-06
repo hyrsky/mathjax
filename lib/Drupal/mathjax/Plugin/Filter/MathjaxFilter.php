@@ -18,9 +18,8 @@ use Drupal\filter\Plugin\FilterBase;
  *   id = "filter_mathjax",
  *   module = "mathjax",
  *   title = @Translation("MathJax"),
- *   description = @Translation("Mathematics inside the configured delimiters is
-       rendered by MathJax."),
- *   type = FILTER_TYPE_MARKUP_LANGUAGE,
+ *   description = @Translation("Mathematics inside the configured delimiters is rendered by MathJax."),
+ *   type = Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
  *   weight = 100
  * )
  */
