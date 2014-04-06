@@ -11,8 +11,7 @@ If you select "Text format", MathJax will be available as a text filter.
 Mathematics inside the default delimiters will be rendered by MathJax. The
 default math delimiters are $$...$$ and \[...\] for displayed mathematics, and
 $...$ and \(...\) for in-line mathematics. You must add the MathJax filter to a 
-text format and put MathJax at the bottom of the filter processing order. See
-below for instructions.
+text format and put MathJax at the bottom of the filter processing order.
 
 You may select "Custom" if you need a more specific configuration. "Custom" is
 the default when upgrading.
