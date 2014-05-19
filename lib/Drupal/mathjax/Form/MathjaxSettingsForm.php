@@ -37,7 +37,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => t('MathJax CDN URL'),
       '#default_value' => !is_null($config->get('mathjax_cdn_url')) ? $config->get('mathjax_cdn_url') : mathjax_default('cdn url'),
-      '#description' => t("Enter the Mathjax CDN url here or leave it unchanged to use the one provided by <a target='_blank' href='@mathjax-homepage'>www.mathjax.org</a>.", array('@mathjax-homepage' => 'http://www.mathjax.org')),
+      '#description' => t("Enter the Mathjax CDN url here or leave it unchanged to use the one provided by <a target='_blank' href='@mathjax-homepage'>www.mathjax.org</a>.", array('@mathjax-homepage' => url('http://www.mathjax.org'))),
     );
     $form['mathjax']['mathjax_config_type'] = array(
       '#type' => 'radios',
@@ -69,7 +69,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
       '#type' => 'textarea',
       '#title' => t('Custom configuration'),
       '#default_value' => !is_null($config->get('mathjax_config_string')) ? $config->get('mathjax_config_string') : mathjax_default('config string'),
-      '#description' => t("Enter a JavaScript configuration string as documented on  <a target='_blank' href='@mathjax-help'>MathJax help</a>. Use with caution as you may introduce JavaScript errors.", array('@mathjax-help' => 'http://docs.mathjax.org/en/latest/')),
+      '#description' => t("Enter a JavaScript configuration string as documented on  <a target='_blank' href='@mathjax-help'>MathJax help</a>. Use with caution as you may introduce JavaScript errors.", array('@mathjax-help' => url('http://docs.mathjax.org/en/latest/'))),
       '#states' => array(
         'invisible' => array(
           ':input[name="mathjax_config_type"]' => array('value' => 0),

@@ -5,6 +5,17 @@
  */
 
 /**
+ * Implements hook_permission().
+ */
+function mathjax_permission() {
+  return array(
+    'administer mathjax' => array(
+      'title' => t('Administer MathJax'),
+    ),
+  );
+}
+
+/**
  * Default values for MathJax configuration. May be overridden in the config.
  *
  * @param string $parameter
@@ -105,15 +116,4 @@ function mathjax_page_build(&$page) {
       drupal_set_message('MathJax is configured to load from a local library, but could not find the library files. Check the module settings.', 'error');
     }
   }
-}
-
-/**
- * Implements hook_permission().
- */
-function mathjax_permission() {
-  return array(
-    'administer mathjax' => array(
-      'title' => t('Administer MathJax'),
-    ),
-  );
 }
