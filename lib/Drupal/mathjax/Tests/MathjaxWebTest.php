@@ -42,6 +42,7 @@ class MathjaxWebTest extends WebTestBase {
     $this->administrator = $this->drupalCreateUser(array(
       'administer mathjax',
       'administer filters',
+      'access administration pages',
     ));
   }
 
@@ -63,6 +64,8 @@ class MathjaxWebTest extends WebTestBase {
   public function testAdmin() {
 
     $this->drupalLogin($this->administrator);
+    $this->drupalGet('admin/config');
+    $this->assertText('Configure global settings for MathJax.');
     $this->drupalGet('admin/config/content/formats/add');
     $this->assertText('Mathematics inside the configured delimiters is rendered by MathJax');
     $this->drupalGet('admin/config/content/mathjax');

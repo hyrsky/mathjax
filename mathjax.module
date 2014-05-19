@@ -18,21 +18,6 @@ function mathjax_permission() {
 }
 
 /**
- * Implements hook_menu_link_defaults().
- */
-function mathjax_menu_link_defaults() {
-  $links['mathjax.admin.config.content.settings'] = array(
-    'link_title' => 'MathJax',
-    'description' => 'Configure global settings for MathJax.',
-    'route_name' => 'mathjax.settings',
-    'parent' => 'system.admin.config.content',
-    'weight' => -5,
-  );
-
-  return $links;
-}
-
-/**
  * Implements hook_help().
  */
 function mathjax_help($path, $arg) {
