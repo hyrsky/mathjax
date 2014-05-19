@@ -12,7 +12,10 @@ use Drupal\Core\Annotation\Translation;
 use Drupal\filter\Plugin\FilterBase;
 
 /**
- * Provides a filter to format a node ID as a link.
+ * Provides a filter to format text with Mathjax.
+ *
+ * Wraps the text in a div with a class name that is looked-for
+ * by the Mathjax Javascript library.
  *
  * @Filter(
  *   id = "filter_mathjax",

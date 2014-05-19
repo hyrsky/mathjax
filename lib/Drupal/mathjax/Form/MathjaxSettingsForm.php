@@ -11,7 +11,7 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\mathjax\Mathjax\Defaults;
 
 /**
- * Todo: Document this class.
+ * Presents the module settings form.
  */
 class MathjaxSettingsForm extends ConfigFormBase {
 
