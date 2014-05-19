@@ -8,6 +8,7 @@
 namespace Drupal\mathjax\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
+use Drupal\mathjax\Mathjax\Defaults;
 
 /**
  * Todo: Document this class.
@@ -36,7 +37,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
     $form['mathjax']['mathjax_cdn_url'] = array(
       '#type' => 'textfield',
       '#title' => t('MathJax CDN URL'),
-      '#default_value' => !is_null($config->get('mathjax_cdn_url')) ? $config->get('mathjax_cdn_url') : mathjax_default('cdn url'),
+      '#default_value' => !is_null($config->get('mathjax_cdn_url')) ? $config->get('mathjax_cdn_url') : Defaults::CDNURL,
       '#description' => t("Enter the Mathjax CDN url here or leave it unchanged to use the one provided by <a target='_blank' href='@mathjax-homepage'>www.mathjax.org</a>.", array('@mathjax-homepage' => url('http://www.mathjax.org'))),
     );
     $form['mathjax']['mathjax_config_type'] = array(
@@ -68,7 +69,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
     $form['mathjax']['mathjax_config_string'] = array(
       '#type' => 'textarea',
       '#title' => t('Custom configuration'),
-      '#default_value' => !is_null($config->get('mathjax_config_string')) ? $config->get('mathjax_config_string') : mathjax_default('config string'),
+      '#default_value' => !is_null($config->get('mathjax_config_string')) ? $config->get('mathjax_config_string') : Defaults::CONFIG,
       '#description' => t("Enter a JavaScript configuration string as documented on  <a target='_blank' href='@mathjax-help'>MathJax help</a>. Use with caution as you may introduce JavaScript errors.", array('@mathjax-help' => url('http://docs.mathjax.org/en/latest/'))),
       '#states' => array(
         'invisible' => array(

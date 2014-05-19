@@ -4,6 +4,8 @@
  * MathJax module.
  */
 
+use Drupal\mathjax\Mathjax\Defaults;
+
 /**
  * Implements hook_permission().
  */
@@ -13,39 +15,6 @@ function mathjax_permission() {
       'title' => t('Administer MathJax'),
     ),
   );
-}
-
-/**
- * Default values for MathJax configuration. May be overridden in the config.
- *
- * @param string $parameter
- *   Decides which default config to fetch. Either 'cdn url' or 'config string'.
- *
- * @return string
- *   The default configuration.
- */
-function mathjax_default($parameter) {
-  switch ($parameter) {
-    case 'cdn url':
-      return 'https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    case 'config string':
-      return "
-window.MathJax = {
-  extensions: ['tex2jax.js'],
-  jax: ['input/TeX','output/HTML-CSS'],
-  tex2jax: {
-    inlineMath: [ ['$','$'], ['\\\\(','\\\\)'] ],
-    processEscapes: true,
-    processClass: 'tex2jax',
-    ignoreClass: 'html'
-  },
-  showProcessingMessages: false,
-  messageStyle: 'none'
-};
-";
-    default:
-      return;
-  }
 }
 
 /**
@@ -85,10 +54,10 @@ function mathjax_page_build(&$page) {
   $config = Drupal::config('mathjax.settings');
 
   if ($config->get('mathjax_config_type') == 0) {
-    $config_string = mathjax_default('config string');
+    $config_string = Defaults::CONFIG;
   }
   else {
-    $config_string = !is_null($config->get('mathjax_config_string')) ? $config->get('mathjax_config_string') : mathjax_default('config string');
+    $config_string = !is_null($config->get('mathjax_config_string')) ? $config->get('mathjax_config_string') : Defaults::CONFIG;
   }
   // Load Mathjax.
   $page['#attached']['js'][] = array(
@@ -98,7 +67,7 @@ function mathjax_page_build(&$page) {
     'weight' => -10,
   );
   if (!is_null($config->get('mathjax_use_cdn')) ? $config->get('mathjax_use_cdn') : TRUE) {
-    $cdn_url = !is_null($config->get('mathjax_cdn_url')) ? $config->get('mathjax_cdn_url') : mathjax_default('cdn url');
+    $cdn_url = !is_null($config->get('mathjax_cdn_url')) ? $config->get('mathjax_cdn_url') : Defaults::CDNURL;
     $page['#attached']['js'][$cdn_url] = array('every_page' => TRUE, 'type' => 'external');
   }
   else {
