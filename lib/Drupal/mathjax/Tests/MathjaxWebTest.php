@@ -53,7 +53,7 @@ class MathjaxWebTest extends WebTestBase {
     // Initial text on form load.
     $this->drupalGet($path);
     $this->assertRaw(mathjax_default('cdn url'), 'Default CDN URL found.');
-    $this->assertRaw('<script type="text/x-mathjax-config">' . mathjax_default('config string') . '</script>', 'Default configuration string found.');
+    $this->assertRaw(mathjax_default('config string'), 'Default configuration string found.');
   }
 
   /**
@@ -88,7 +88,7 @@ class MathjaxWebTest extends WebTestBase {
 
     $this->drupalPostForm($path, $edit, t('Save configuration'));
     $this->assertText('Enter a JavaScript configuration string as documented');
-    $this->assertRaw('<script type="text/x-mathjax-config">' . $custom . '</script>', 'Custom configuration string found.');
+    $this->assertRaw($custom, 'Custom configuration string found.');
 
   }
 }

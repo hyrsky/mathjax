@@ -4,16 +4,6 @@
  * MathJax module install.
  */
 
-
-/**
- * Implements hook_uninstall().
- */
-function mathjax_uninstall() {
-  db_query("DELETE FROM {variable} WHERE name LIKE 'mathjax_%'");
-  cache_clear_all('variables', 'cache_bootstrap');
-}
-
-
 /**
  * Implements hook_requirements().
  *
