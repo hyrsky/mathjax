@@ -35,7 +35,6 @@ function mathjax_help($path, $arg) {
  * Implements hook_page_build().
  */
 function mathjax_page_build(&$page) {
-  global $base_path;
   $config = Drupal::config('mathjax.settings');
 
   if ($config->get('mathjax_config_type') == 0) {
@@ -57,9 +56,9 @@ function mathjax_page_build(&$page) {
   }
   else {
     // Use the local library.
-    $library = DRUPAL_ROOT . $base_path . libraries_get_path('mathjax') . '/MathJax.js';
+    $library = DRUPAL_ROOT . '/' . libraries_get_path('mathjax') . '/MathJax.js';
     if (file_exists($library)) {
-      $page['#attached']['js'][$base_path . libraries_get_path('mathjax') . '/MathJax.js?config=TeX-AMS-MML_HTMLorMML'] = array('every_page' => TRUE, 'type' => 'external');
+      $page['#attached']['js'][libraries_get_path('mathjax', TRUE) . '/MathJax.js?config=TeX-AMS-MML_HTMLorMML'] = array('every_page' => TRUE, 'type' => 'external');
     }
     else {
       // Throw an error.
