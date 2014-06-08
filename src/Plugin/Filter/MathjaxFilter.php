@@ -41,7 +41,7 @@ class MathjaxFilter extends FilterBase {
     return $this->t('<span class="tex2jax_ignore">Mathematics inside the <a href="@url">configured delimiters</a> is
       rendered by MathJax. The default math delimiters are $$...$$ and \[...\] for
       displayed mathematics, and $...$ and \(...\) for in-line mathematics.</span>',
-        array('@url' => url('admin/config/content/mathjax'))
+        array('@url' => \Drupal::url('mathjax.settings'))
     );
   }
 }

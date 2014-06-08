@@ -44,7 +44,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
       '#type' => 'radios',
       '#title' => t('Configuration Type'),
       '#options' => array(
-        0 => t('Text Format (Recommended&mdash;Add the MathJax filter to a <a href="@textformats">text format</a>.)', array('@textformats' => url('admin/config/content/formats'))),
+        0 => t('Text Format (Recommended&mdash;Add the MathJax filter to a <a href="@textformats">text format</a>.)', array('@textformats' => \Drupal::url('filter.admin_overview'))),
         1 => t('Custom'),
       ),
       '#default_value' => !is_null($config->get('mathjax_config_type')) ? $config->get('mathjax_config_type') : 0,
@@ -58,7 +58,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
       default math delimiters are $$...$$ and \[...\] for displayed mathematics,
       and $...$ and \(...\) for in-line mathematics. <strong>You must add
       the MathJax filter to a <a href="@textformats">text format</a> and put
-      MathJax at the bottom of the filter processing order.</strong>', array('@textformats' => url('admin/config/content/formats'))),
+      MathJax at the bottom of the filter processing order.</strong>', array('@textformats' => \Drupal::url('filter.admin_overview'))),
       '#suffix' => '</span>',
       '#states' => array(
         'invisible' => array(
