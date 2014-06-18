@@ -40,35 +40,35 @@ class MathjaxSettingsForm extends ConfigFormBase {
 
     $form['mathjax_use_cdn'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Use MathJax Content Delivery Network (CDN)'),
+      '#title' => $this->t('Use MathJax Content Delivery Network (CDN)'),
       '#default_value' => !is_null($config->get('mathjax_use_cdn')) ? $config->get('mathjax_use_cdn') : TRUE,
-      '#description' => t('Check this box to load MathJax source from MathJax servers (recommended) or from the link you can provide below.'),
+      '#description' => $this->t('Check this box to load MathJax source from MathJax servers (recommended) or from the link you can provide below.'),
     );
     $form['mathjax_cdn_url'] = array(
       '#type' => 'textfield',
-      '#title' => t('MathJax CDN URL'),
+      '#title' => $this->t('MathJax CDN URL'),
       '#default_value' => !is_null($config->get('mathjax_cdn_url')) ? $config->get('mathjax_cdn_url') : Defaults::CDNURL,
-      '#description' => t("Enter the Mathjax CDN url here or leave it unchanged to use the one provided by <a target='_blank' href='@mathjax-homepage'>www.mathjax.org</a>.", array('@mathjax-homepage' => url('http://www.mathjax.org'))),
+      '#description' => $this->t("Enter the Mathjax CDN url here or leave it unchanged to use the one provided by <a target='_blank' href='@mathjax-homepage'>www.mathjax.org</a>.", array('@mathjax-homepage' => 'http://www.mathjax.org')),
     );
     $form['mathjax_config_type'] = array(
       '#type' => 'radios',
-      '#title' => t('Configuration Type'),
+      '#title' => $this->t('Configuration Type'),
       '#options' => array(
-        0 => t('Text Format (Recommended&mdash;Add the MathJax filter to a <a href="@textformats">text format</a>.)', array('@textformats' => \Drupal::url('filter.admin_overview'))),
-        1 => t('Custom'),
+        0 => $this->t('Text Format (Recommended&mdash;Add the MathJax filter to a <a href="@textformats">text format</a>.)', array('@textformats' => $this->url('filter.admin_overview'))),
+        1 => $this->t('Custom'),
       ),
       '#default_value' => !is_null($config->get('mathjax_config_type')) ? $config->get('mathjax_config_type') : 0,
     );
     $form['mathjax_note_default'] = array(
       '#type' => 'item',
       '#prefix' => '<span class="tex2jax_ignore">',
-      '#markup' => t('MathJax
+      '#markup' => $this->t('MathJax
       will be available as a text filter. Mathematics inside the
       default delimiters will be rendered by MathJax. The
       default math delimiters are $$...$$ and \[...\] for displayed mathematics,
       and $...$ and \(...\) for in-line mathematics. <strong>You must add
       the MathJax filter to a <a href="@textformats">text format</a> and put
-      MathJax at the bottom of the filter processing order.</strong>', array('@textformats' => \Drupal::url('filter.admin_overview'))),
+      MathJax at the bottom of the filter processing order.</strong>', array('@textformats' => $this->url('filter.admin_overview'))),
       '#suffix' => '</span>',
       '#states' => array(
         'invisible' => array(
@@ -78,9 +78,9 @@ class MathjaxSettingsForm extends ConfigFormBase {
     );
     $form['mathjax_config_string'] = array(
       '#type' => 'textarea',
-      '#title' => t('Custom configuration'),
+      '#title' => $this->t('Custom configuration'),
       '#default_value' => !is_null($config->get('mathjax_config_string')) ? $config->get('mathjax_config_string') : Defaults::CONFIG,
-      '#description' => t("Enter a JavaScript configuration string as documented on  <a target='_blank' href='@mathjax-help'>MathJax help</a>. Use with caution as you may introduce JavaScript errors.", array('@mathjax-help' => url('http://docs.mathjax.org/en/latest/'))),
+      '#description' => $this->t("Enter a JavaScript configuration string as documented on  <a target='_blank' href='@mathjax-help'>MathJax help</a>. Use with caution as you may introduce JavaScript errors.", array('@mathjax-help' => 'http://docs.mathjax.org/en/latest/')),
       '#states' => array(
         'invisible' => array(
           ':input[name="mathjax_config_type"]' => array('value' => 0),
