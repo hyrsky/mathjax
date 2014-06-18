@@ -28,19 +28,29 @@ class MathjaxSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, array &$form_state) {
     $config = $this->config('mathjax.settings');
 
-    $form['mathjax']['mathjax_use_cdn'] = array(
+    $form['test'] = array(
+      '#type' => 'fieldset',
+      '#title' => 'MathJax Test',
+    );
+
+    $form['test']['library'] = array(
+      '#type' => 'item',
+      '#markup' => '<div class="tex2jax"><p>If the MathJax library is installed properly, you should see the square root of x here: $ \sqrt{x} $ and the square root of y here: \(\sqrt{y}\)</p><p>$$\text{The quadratic formula should appear here: } x = \frac {-b \pm \sqrt {b^2 - 4ac}}{2a}$$</p><p>\[\text{The cubic equation should appear here: } a x^3\; +\; b x^2\; +\; c x\; +\; d\; =\; 0\]</p></div>',
+    );
+
+    $form['mathjax_use_cdn'] = array(
       '#type' => 'checkbox',
       '#title' => t('Use MathJax Content Delivery Network (CDN)'),
       '#default_value' => !is_null($config->get('mathjax_use_cdn')) ? $config->get('mathjax_use_cdn') : TRUE,
       '#description' => t('Check this box to load MathJax source from MathJax servers (recommended) or from the link you can provide below.'),
     );
-    $form['mathjax']['mathjax_cdn_url'] = array(
+    $form['mathjax_cdn_url'] = array(
       '#type' => 'textfield',
       '#title' => t('MathJax CDN URL'),
       '#default_value' => !is_null($config->get('mathjax_cdn_url')) ? $config->get('mathjax_cdn_url') : Defaults::CDNURL,
       '#description' => t("Enter the Mathjax CDN url here or leave it unchanged to use the one provided by <a target='_blank' href='@mathjax-homepage'>www.mathjax.org</a>.", array('@mathjax-homepage' => url('http://www.mathjax.org'))),
     );
-    $form['mathjax']['mathjax_config_type'] = array(
+    $form['mathjax_config_type'] = array(
       '#type' => 'radios',
       '#title' => t('Configuration Type'),
       '#options' => array(
@@ -49,7 +59,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
       ),
       '#default_value' => !is_null($config->get('mathjax_config_type')) ? $config->get('mathjax_config_type') : 0,
     );
-    $form['mathjax']['mathjax_note_default'] = array(
+    $form['mathjax_note_default'] = array(
       '#type' => 'item',
       '#prefix' => '<span class="tex2jax_ignore">',
       '#markup' => t('MathJax
@@ -66,7 +76,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
         ),
       ),
     );
-    $form['mathjax']['mathjax_config_string'] = array(
+    $form['mathjax_config_string'] = array(
       '#type' => 'textarea',
       '#title' => t('Custom configuration'),
       '#default_value' => !is_null($config->get('mathjax_config_string')) ? $config->get('mathjax_config_string') : Defaults::CONFIG,
