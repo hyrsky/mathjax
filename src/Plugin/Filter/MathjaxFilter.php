@@ -30,10 +30,10 @@ class MathjaxFilter extends FilterBase {
   /**
    * {@inheritdoc}
    */
-  public function process($text, $langcode, $cache, $cache_id) {
+  public function process($text, $langcode) {
     return '<div class="tex2jax">' . $text . '</div>';
   }
-  
+
   /**
    * {@inheritdoc}
    */
