@@ -10,6 +10,7 @@ namespace Drupal\mathjax\Plugin\Filter;
 use Drupal\filter\Annotation\Filter;
 use Drupal\Core\Annotation\Translation;
 use Drupal\filter\Plugin\FilterBase;
+use Drupal\filter\FilterProcessResult;
 
 /**
  * Provides a filter to format text with Mathjax.
@@ -31,7 +32,8 @@ class MathjaxFilter extends FilterBase {
    * {@inheritdoc}
    */
   public function process($text, $langcode) {
-    return '<div class="tex2jax">' . $text . '</div>';
+    $wrapped = '<div class="tex2jax">' . $text . '</div>';
+    return new FilterProcessResult($wrapped);
   }
 
   /**
