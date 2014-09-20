@@ -8,7 +8,6 @@
 namespace Drupal\mathjax\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
-use Drupal\mathjax\Mathjax\Defaults;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -42,13 +41,13 @@ class MathjaxSettingsForm extends ConfigFormBase {
     $form['mathjax_use_cdn'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Use MathJax Content Delivery Network (CDN)'),
-      '#default_value' => !is_null($config->get('mathjax_use_cdn')) ? $config->get('mathjax_use_cdn') : TRUE,
+      '#default_value' => $config->get('mathjax_use_cdn', TRUE),
       '#description' => $this->t('Check this box to load MathJax source from MathJax servers (recommended) or from the link you can provide below.'),
     );
     $form['mathjax_cdn_url'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('MathJax CDN URL'),
-      '#default_value' => !is_null($config->get('mathjax_cdn_url')) ? $config->get('mathjax_cdn_url') : Defaults::CDNURL,
+      '#default_value' => $config->get('mathjax_cdn_url'),
       '#description' => $this->t("Enter the Mathjax CDN url here or leave it unchanged to use the one provided by <a target='_blank' href='@mathjax-homepage'>www.mathjax.org</a>.", array('@mathjax-homepage' => 'http://www.mathjax.org')),
     );
     $form['mathjax_config_type'] = array(
@@ -80,7 +79,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
     $form['mathjax_config_string'] = array(
       '#type' => 'textarea',
       '#title' => $this->t('Custom configuration'),
-      '#default_value' => !is_null($config->get('mathjax_config_string')) ? $config->get('mathjax_config_string') : Defaults::CONFIG,
+      '#default_value' => $config->get('mathjax_config_string'),
       '#description' => $this->t("Enter a JavaScript configuration string as documented on  <a target='_blank' href='@mathjax-help'>MathJax help</a>. Use with caution as you may introduce JavaScript errors.", array('@mathjax-help' => 'http://docs.mathjax.org/en/latest/')),
       '#states' => array(
         'invisible' => array(

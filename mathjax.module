@@ -4,8 +4,6 @@
  * MathJax module.
  */
 
-use Drupal\mathjax\Mathjax\Defaults;
-
 /**
  * Implements hook_permission().
  */
@@ -36,13 +34,8 @@ function mathjax_help($path, $arg) {
  */
 function mathjax_page_build(&$page) {
   $config = Drupal::config('mathjax.settings');
+  $config_string = $config->get('mathjax_config_string');
 
-  if ($config->get('mathjax_config_type') == 0) {
-    $config_string = Defaults::CONFIG;
-  }
-  else {
-    $config_string = !is_null($config->get('mathjax_config_string')) ? $config->get('mathjax_config_string') : Defaults::CONFIG;
-  }
   // Load Mathjax.
   $page['#attached']['js'][] = array(
     'type' => 'inline',
@@ -50,8 +43,8 @@ function mathjax_page_build(&$page) {
     'every_page' => TRUE,
     'weight' => -10,
   );
-  if (!is_null($config->get('mathjax_use_cdn')) ? $config->get('mathjax_use_cdn') : TRUE) {
-    $cdn_url = !is_null($config->get('mathjax_cdn_url')) ? $config->get('mathjax_cdn_url') : Defaults::CDNURL;
+  if ($config->get('mathjax_use_cdn', TRUE)) {
+    $cdn_url = $config->get('mathjax_cdn_url');
     $page['#attached']['js'][$cdn_url] = array('every_page' => TRUE, 'type' => 'external');
   }
   else {

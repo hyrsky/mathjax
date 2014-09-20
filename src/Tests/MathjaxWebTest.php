@@ -8,7 +8,7 @@
 namespace Drupal\mathjax\Tests;
 
 use Drupal\simpletest\WebTestBase;
-use Drupal\mathjax\Mathjax\Defaults;
+use Drupal;
 
 /**
  * Configuration test case for the module.
@@ -54,15 +54,16 @@ class MathjaxWebTest extends WebTestBase {
 
     // Initial text on form load.
     $this->drupalGet($path);
-    $this->assertRaw(Defaults::CDNURL, 'Default CDN URL found.');
-    $this->assertRaw(Defaults::CONFIG, 'Default configuration string found.');
+    $config = Drupal::config('mathjax.settings');
+    $this->assertRaw($config->get('mathjax_cdn_url', 'Default CDN URL found.'));
+    $this->assertRaw($config->get('mathjax_config_string', 'Default configuration string found.'));
   }
 
   /**
    * Test the administration functions.
    */
   public function testAdmin() {
-
+    $config = Drupal::config('mathjax.settings');
     $this->drupalLogin($this->administrator);
     $this->drupalGet('admin/config');
     $this->assertText('Configure global settings for MathJax.');
@@ -71,7 +72,7 @@ class MathjaxWebTest extends WebTestBase {
     $this->drupalGet('admin/config/content/mathjax');
     $this->assertTitle('MathJax | Drupal', 'Page title set.');
     $this->assertText('MathJax CDN URL');
-    $this->assertFieldByName('mathjax_cdn_url', Defaults::CDNURL, 'Default CDN config string found.');
+    $this->assertFieldByName('mathjax_cdn_url', $config->get('mathjax_cdn_url'), 'Default CDN config string found.');
     $this->assertText('Enter the Mathjax CDN url here or leave it unchanged to use the one provided by www.mathjax.org.');
     $this->assertText('Configuration Type');
     $this->assertFieldByName('mathjax_config_type', 0);
