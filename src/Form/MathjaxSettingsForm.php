@@ -9,6 +9,7 @@ namespace Drupal\mathjax\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\mathjax\Mathjax\Defaults;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Presents the module settings form.
@@ -25,7 +26,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, array &$form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('mathjax.settings');
 
     $form['test'] = array(
@@ -93,12 +94,12 @@ class MathjaxSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, array &$form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('mathjax.settings')
-        ->set('mathjax_use_cdn', $form_state['values']['mathjax_use_cdn'])
-        ->set('mathjax_cdn_url', $form_state['values']['mathjax_cdn_url'])
-        ->set('mathjax_config_type', $form_state['values']['mathjax_config_type'])
-        ->set('mathjax_config_string', $form_state['values']['mathjax_config_string'])
+        ->set('mathjax_use_cdn', $form_state->getValue('mathjax_use_cdn'))
+        ->set('mathjax_cdn_url', $form_state->getValue('mathjax_cdn_url'))
+        ->set('mathjax_config_type', $form_state->getValue('mathjax_config_type'))
+        ->set('mathjax_config_string', $form_state->getValue('mathjax_config_string'))
         ->save();
 
     parent::submitForm($form, $form_state);
