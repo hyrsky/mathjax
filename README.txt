@@ -51,23 +51,6 @@ it in a site specific (e.g. sites/mysite/libraries) or default folder
 
 4. Follow from step #2 above.
 
-
-INSTALLATION USING DRUSH
-========================
-
-Using MathJax CDN - recommended
--------------------------------
-drush en mathjax
-
-
-Using a local copy of mathjax
-------------------------------
-drush dl libraries
-drush en libraries mathjax
-drush mathjax-download
-drush vset --yes mathjax_use_cdn 0
-
-
 AUTHOR
 ======
 Module written by Thomas Julou.
