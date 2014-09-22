@@ -40,25 +40,23 @@ Using a local copy of MathJax (relies on libraries module)
 
 2. Install and enable "libraries". See http://drupal.org/project/libraries.
 
-3. Install third party MathJax software
-     Download MathJax source from MathJax website.
-     Unarchive it into your "libraries" directory (e.g. sites/all/libraries).
+3. Install the third-party MathJax software:
+     Download MathJax source from the MathJax website.
+     Un-archive it into your "libraries" directory.
      You may need to create the "libraries" directory first.
      Rename it to "mathjax" (lower case).
-Relying on libraries module to locate 'mathjax' folder allows you to place
-it in a site specific (e.g. sites/mysite/libraries) or default folder
-(e.g. sites/all/libraries). Site-specific versions are selected preferentially.
+Relying on the libraries module to locate the 'mathjax' directory allows you to place
+it in a site-specific diretory (e.g. sites/mysite/libraries) or in the default directory
+(libraries). Site-specific versions are selected preferentially.
 
 4. Follow from step #2 above.
 
-AUTHOR
-======
+ORIGINAL AUTHOR
+===============
 Module written by Thomas Julou.
 http://drupal.org/user/273952
 
 MAINTAINER(S)
 =============
-2013: Chris McCafferty (cilefen) https://drupal.org/user/1850070
-
-MathJax
-http://www.mathjax.org/
+2013: Chris McCafferty (cilefen) https://drupal.org/u/cilefen
+2014: P. Magunia (pmagunia) https://www.drupal.org/u/pmagunia
