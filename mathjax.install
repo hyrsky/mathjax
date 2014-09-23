@@ -14,7 +14,7 @@ function mathjax_requirements($phase) {
   $requirements = array();
   $config = Drupal::config('mathjax.settings');
 
-  if ($phase == 'runtime' && !$config->get('mathjax_use_cdn', TRUE)) {
+  if ($phase == 'runtime' && !$config->get('use_cdn', TRUE)) {
     $requirements['mathjax'] = array(
       'title' => t('MathJax'),
       'value' => t('Installed correctly'),

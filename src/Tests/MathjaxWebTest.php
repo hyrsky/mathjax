@@ -55,8 +55,8 @@ class MathjaxWebTest extends WebTestBase {
     // Initial text on form load.
     $this->drupalGet($path);
     $config = Drupal::config('mathjax.settings');
-    $this->assertRaw($config->get('mathjax_cdn_url', 'Default CDN URL found.'));
-    $this->assertRaw($config->get('mathjax_config_string', 'Default configuration string found.'));
+    $this->assertRaw($config->get('cdn_url', 'Default CDN URL found.'));
+    $this->assertRaw($config->get('config_string', 'Default configuration string found.'));
   }
 
   /**
@@ -72,10 +72,10 @@ class MathjaxWebTest extends WebTestBase {
     $this->drupalGet('admin/config/content/mathjax');
     $this->assertTitle('MathJax | Drupal', 'Page title set.');
     $this->assertText('MathJax CDN URL');
-    $this->assertFieldByName('mathjax_cdn_url', $config->get('mathjax_cdn_url'), 'Default CDN config string found.');
+    $this->assertFieldByName('cdn_url', $config->get('cdn_url'), 'Default CDN config string found.');
     $this->assertText('Enter the Mathjax CDN url here or leave it unchanged to use the one provided by www.mathjax.org.');
     $this->assertText('Configuration Type');
-    $this->assertFieldByName('mathjax_config_type', 0);
+    $this->assertFieldByName('config_type', 0);
 
     $custom = "MathJax.Hub.Config({
       extensions: ['tex2jax.js'],
@@ -87,8 +87,8 @@ class MathjaxWebTest extends WebTestBase {
     });";
     $path = 'admin/config/content/mathjax';
     $edit = array(
-      'mathjax_config_type' => 1,
-      'mathjax_config_string' => $custom,
+      'config_type' => 1,
+      'config_string' => $custom,
     );
 
     $this->drupalPostForm($path, $edit, t('Save configuration'));

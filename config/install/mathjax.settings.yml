@@ -1,4 +1,4 @@
-mathjax_use_cdn: 1
-mathjax_cdn_url: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
-mathjax_config_type: '0'
-mathjax_config_string: "window.MathJax = {\r\n  tex2jax: {\r\n    inlineMath: [ ['$','$'], ['\\(','\\)'] ],\r\n    processEscapes: true,\r\n    processClass: 'tex2jax',\r\n    ignoreClass: 'html'\r\n  },\r\n  showProcessingMessages: false,\r\n  messageStyle: 'none'\r\n};\r\n"
+use_cdn: 1
+cdn_url: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+config_type: '0'
+config_string: "window.MathJax = {\r\n  tex2jax: {\r\n    inlineMath: [ ['$','$'], ['\\(','\\)'] ],\r\n    processEscapes: true,\r\n    processClass: 'tex2jax',\r\n    ignoreClass: 'html'\r\n  },\r\n  showProcessingMessages: false,\r\n  messageStyle: 'none'\r\n};\r\n"

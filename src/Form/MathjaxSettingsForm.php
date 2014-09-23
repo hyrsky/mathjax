@@ -38,26 +38,26 @@ class MathjaxSettingsForm extends ConfigFormBase {
       '#markup' => '<div class="tex2jax"><p>If the MathJax library is installed properly, you should see the square root of x here: $ \sqrt{x} $ and the square root of y here: \(\sqrt{y}\)</p><p>$$\text{The quadratic formula should appear here: } x = \frac {-b \pm \sqrt {b^2 - 4ac}}{2a}$$</p><p>\[\text{The cubic equation should appear here: } a x^3\; +\; b x^2\; +\; c x\; +\; d\; =\; 0\]</p></div>',
     );
 
-    $form['mathjax_use_cdn'] = array(
+    $form['use_cdn'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Use MathJax Content Delivery Network (CDN)'),
-      '#default_value' => $config->get('mathjax_use_cdn', TRUE),
+      '#default_value' => $config->get('use_cdn', TRUE),
       '#description' => $this->t('Check this box to load MathJax source from MathJax servers (recommended) or from the link you can provide below.'),
     );
-    $form['mathjax_cdn_url'] = array(
+    $form['cdn_url'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('MathJax CDN URL'),
-      '#default_value' => $config->get('mathjax_cdn_url'),
+      '#default_value' => $config->get('cdn_url'),
       '#description' => $this->t("Enter the Mathjax CDN url here or leave it unchanged to use the one provided by <a target='_blank' href='@mathjax-homepage'>www.mathjax.org</a>.", array('@mathjax-homepage' => 'http://www.mathjax.org')),
     );
-    $form['mathjax_config_type'] = array(
+    $form['config_type'] = array(
       '#type' => 'radios',
       '#title' => $this->t('Configuration Type'),
       '#options' => array(
         0 => $this->t('Text Format (Recommended&mdash;Add the MathJax filter to a <a href="@textformats">text format</a>.)', array('@textformats' => $this->url('filter.admin_overview'))),
         1 => $this->t('Custom'),
       ),
-      '#default_value' => !is_null($config->get('mathjax_config_type')) ? $config->get('mathjax_config_type') : 0,
+      '#default_value' => $config->get('config_type'),
     );
     $form['mathjax_note_default'] = array(
       '#type' => 'item',
@@ -72,18 +72,18 @@ class MathjaxSettingsForm extends ConfigFormBase {
       '#suffix' => '</span>',
       '#states' => array(
         'invisible' => array(
-          ':input[name="mathjax_config_type"]' => array('value' => 1),
+          ':input[name="config_type"]' => array('value' => 1),
         ),
       ),
     );
-    $form['mathjax_config_string'] = array(
+    $form['config_string'] = array(
       '#type' => 'textarea',
       '#title' => $this->t('Custom configuration'),
-      '#default_value' => $config->get('mathjax_config_string'),
+      '#default_value' => $config->get('config_string'),
       '#description' => $this->t("Enter a JavaScript configuration string as documented on  <a target='_blank' href='@mathjax-help'>MathJax help</a>. Use with caution as you may introduce JavaScript errors.", array('@mathjax-help' => 'http://docs.mathjax.org/en/latest/')),
       '#states' => array(
         'invisible' => array(
-          ':input[name="mathjax_config_type"]' => array('value' => 0),
+          ':input[name="config_type"]' => array('value' => 0),
         ),
       ),
     );
@@ -95,10 +95,10 @@ class MathjaxSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('mathjax.settings')
-        ->set('mathjax_use_cdn', $form_state->getValue('mathjax_use_cdn'))
-        ->set('mathjax_cdn_url', $form_state->getValue('mathjax_cdn_url'))
-        ->set('mathjax_config_type', $form_state->getValue('mathjax_config_type'))
-        ->set('mathjax_config_string', $form_state->getValue('mathjax_config_string'))
+        ->set('use_cdn', $form_state->getValue('use_cdn'))
+        ->set('cdn_url', $form_state->getValue('cdn_url'))
+        ->set('config_type', $form_state->getValue('config_type'))
+        ->set('config_string', $form_state->getValue('config_string'))
         ->save();
 
     parent::submitForm($form, $form_state);
