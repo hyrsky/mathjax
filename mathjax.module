@@ -5,17 +5,6 @@
  */
 
 /**
- * Implements hook_permission().
- */
-function mathjax_permission() {
-  return array(
-    'administer mathjax' => array(
-      'title' => t('Administer MathJax'),
-    ),
-  );
-}
-
-/**
  * Implements hook_help().
  */
 function mathjax_help($path, $arg) {
