@@ -6,25 +6,29 @@
 
 /**
  * Implements hook_requirements().
- *
- * This hook will issue warnings if:
- * - MathJax relies on local files and the source files are not found
  */
 function mathjax_requirements($phase) {
   $requirements = array();
-  $config = Drupal::config('mathjax.settings');
 
-  if ($phase == 'runtime' && !$config->get('use_cdn', TRUE)) {
-    $requirements['mathjax'] = array(
-      'title' => t('MathJax'),
-      'value' => t('Installed correctly'),
-      'severity' => REQUIREMENT_OK,
-    );
-
-    if (!_mathjax_requirements_isinstalled()) {
-      $requirements['mathjax']['value'] = t('Third party MathJax software not properly installed');
-      $requirements['mathjax']['description'] = t('MathJax was not found in any \'libraries\' folder (e.g. sites/all/libraries).');
-      $requirements['mathjax']['severity'] = REQUIREMENT_ERROR;
+  if ($phase == 'runtime') {
+    $config = Drupal::config('mathjax.settings');
+    if (!$config->get('use_cdn')) {
+      if (!_mathjax_library_present()) {
+        $requirements['mathjax_local_libraries'] = array(
+          'title' => t('MathJax'),
+          'value' => t('Missing JavaScript libraries'),
+          'description' => t("MathJax is configured to use local library files but they could not be found. See the README."),
+          'severity' => REQUIREMENT_ERROR,
+        );
+      }
+      if (!function_exists('libraries_get_path')) {
+        $requirements['mathjax_libraries_dependency'] = array(
+          'title' => t('MathJax'),
+          'value' => t('Missing libraries module'),
+          'description' => t("MathJax is configured to use local library files but the libraries module is not enabled. See the README."),
+          'severity' => REQUIREMENT_ERROR,
+        );
+      }
     }
   }
 
@@ -34,16 +38,15 @@ function mathjax_requirements($phase) {
 /**
  * Determines whether the MathJax sources are present.
  *
- * It checks if MathJax.js is present.
- * This function is used by mathjax_requirements()
- *
  * @return bool
  *   True if MathJax is installed
  */
-function _mathjax_requirements_isinstalled() {
-  $mathjax_path = libraries_get_path('mathjax');
-  $jspath = $mathjax_path . '/MathJax.js';
-  $jsp = file_exists($jspath);
-
-  return $jsp;
+function _mathjax_library_present() {
+  if (function_exists('libraries_get_path')) {
+    $mathjax_path = libraries_get_path('mathjax');
+    $jspath = $mathjax_path . '/MathJax.js';
+    $jsp = file_exists($jspath);
+    return $jsp;
+  }
+  return FALSE;
 }

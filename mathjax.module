@@ -37,14 +37,8 @@ function mathjax_page_build(&$page) {
     $page['#attached']['js'][$cdn_url] = array('every_page' => TRUE, 'type' => 'external');
   }
   else {
-    // Use the local library.
-    $library = DRUPAL_ROOT . '/' . libraries_get_path('mathjax') . '/MathJax.js';
-    if (file_exists($library)) {
+    if (function_exists('libraries_get_path')) {
       $page['#attached']['js'][libraries_get_path('mathjax', TRUE) . '/MathJax.js?config=TeX-AMS-MML_HTMLorMML'] = array('every_page' => TRUE, 'type' => 'external');
-    }
-    else {
-      // Throw an error.
-      drupal_set_message('MathJax is configured to load from a local library, but could not find the library files. Check the module settings.', 'error');
     }
   }
 }
