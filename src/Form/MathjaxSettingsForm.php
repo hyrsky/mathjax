@@ -79,7 +79,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
     $form['config_string'] = array(
       '#type' => 'textarea',
       '#title' => $this->t('Custom configuration'),
-      '#default_value' => $config->get('config_string'),
+      '#default_value' => ($config->get('config_string')) ? $config->get('config_string') : $config->get('default_config_string'),
       '#description' => $this->t("Enter a JavaScript configuration string as documented on  <a target='_blank' href='@mathjax-help'>MathJax help</a>. Use with caution as you may introduce JavaScript errors.", array('@mathjax-help' => 'http://docs.mathjax.org/en/latest/')),
       '#states' => array(
         'invisible' => array(

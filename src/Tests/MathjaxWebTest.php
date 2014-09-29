@@ -58,7 +58,7 @@ class MathjaxWebTest extends WebTestBase {
     $this->drupalGet($path);
     $config = Drupal::config('mathjax.settings');
     $this->assertRaw($config->get('cdn_url', 'Default CDN URL found.'));
-    $this->assertRaw($config->get('config_string', 'Default configuration string found.'));
+    $this->assertRaw($config->get('default_config_string', 'Default configuration string found.'));
   }
 
   /**
@@ -84,7 +84,7 @@ class MathjaxWebTest extends WebTestBase {
       jax: ['input/TeX','output/HTML-CSS'],
       tex2jax: {
         inlineMath: [ ['$','$'], ['\\\\(','\\\\)'] ],
-        processEscapes: true
+        processEscapes: false
       }
     });";
     $path = 'admin/config/content/mathjax';
@@ -97,6 +97,11 @@ class MathjaxWebTest extends WebTestBase {
     $this->assertText('Enter a JavaScript configuration string as documented');
     $this->assertRaw($custom, 'Custom configuration string found.');
 
+    $edit = array(
+      'config_type' => 0,
+    );
+    $this->drupalPostForm($path, $edit, t('Save configuration'));
+    $this->assertRaw($config->get('default_config_string'), 'Default configuration string found.');
   }
 
   /**

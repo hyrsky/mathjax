@@ -23,7 +23,12 @@ function mathjax_help($path, $arg) {
  */
 function mathjax_page_build(&$page) {
   $config = Drupal::config('mathjax.settings');
-  $config_string = $config->get('config_string');
+  if ($config->get('config_type') == 0) {
+    $config_string = $config->get('default_config_string');
+  }
+  else {
+    $config_string = $config->get('config_string');
+  }
 
   // Load Mathjax.
   $page['#attached']['js'][] = array(
