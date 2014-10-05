@@ -24,7 +24,7 @@ use Drupal\filter\FilterProcessResult;
  *   title = @Translation("MathJax"),
  *   description = @Translation("Mathematics inside the configured delimiters is rendered by MathJax."),
  *   type = Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
- *   weight = 100
+ *   weight = 50
  * )
  */
 class MathjaxFilter extends FilterBase {

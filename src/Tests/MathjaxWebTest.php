@@ -121,4 +121,20 @@ class MathjaxWebTest extends WebTestBase {
     $this->assertText('MathJax is configured to use local library files but the libraries module is not enabled. See the README.');
     $this->assertText('MathJax is configured to use local library files but they could not be found. See the README.');
   }
+
+  /**
+   * Ensure the MathJax filter is at the bottom of the processing order.
+   */
+  public function testFilterOrder() {
+    $this->drupalLogin($this->administrator);
+    // Activate the MathJax filter on the plain_text format.
+    $this->drupalGet('admin/config/content/formats/manage/plain_text');
+    $edit = array('filters[filter_mathjax][status]' => TRUE);
+    $this->drupalPostForm(NULL, $edit, t('Save configuration'));
+    $this->drupalGet('admin/config/content/formats/manage/plain_text');
+    // Ensure that MathJax appears at the bottom of the active filter list.
+    $count = count($this->xpath("//div[@id='edit-filters-status']/div/input[@class='form-checkbox' and @checked='checked']"));
+    $result = $this->xpath("//table[@id='filter-order']/tbody/tr[$count]/td[1]");
+    $this->assertEqual($result[0]->__toString(), 'MathJax');
+  }
 }
