@@ -19,9 +19,9 @@ function mathjax_help($path, $arg) {
 }
 
 /**
- * Implements hook_page_build().
+ * Implements hook_page_attachments().
  */
-function mathjax_page_build(&$page) {
+function mathjax_page_attachments(&$page) {
   $config = Drupal::config('mathjax.settings');
   if ($config->get('config_type') == 0) {
     $config_string = $config->get('default_config_string');
