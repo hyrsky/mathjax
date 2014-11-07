@@ -37,6 +37,12 @@ function mathjax_page_attachments(&$page) {
     'every_page' => TRUE,
     'weight' => -10,
   );
+  $page['#attached']['library'][] = 'mathjax/mathjax';
+  $settings = ['mathjax' =>
+    ['config_type' => $config->get('config_type')]
+  ];
+  $page['#attached']['js'][] = array('data' => $settings, 'type' => 'setting');
+
   if ($config->get('use_cdn', TRUE)) {
     $cdn_url = $config->get('cdn_url');
     $page['#attached']['js'][$cdn_url] = array('every_page' => TRUE, 'type' => 'external');

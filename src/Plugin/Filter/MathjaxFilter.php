@@ -32,7 +32,7 @@ class MathjaxFilter extends FilterBase {
    * {@inheritdoc}
    */
   public function process($text, $langcode) {
-    $wrapped = '<div class="tex2jax">' . $text . '</div>';
+    $wrapped = '<div class="tex2jax_process">' . $text . '</div>';
     return new FilterProcessResult($wrapped);
   }
 

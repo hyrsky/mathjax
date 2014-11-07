@@ -1,0 +1,7 @@
+mathjax:
+  version: VERSION
+  js:
+    js/mathjax.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

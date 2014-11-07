@@ -35,7 +35,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
 
     $form['test']['library'] = array(
       '#type' => 'item',
-      '#markup' => '<div class="tex2jax"><p>If the MathJax library is installed properly, you should see the square root of x here: $ \sqrt{x} $ and the square root of y here: \(\sqrt{y}\)</p><p>$$\text{The quadratic formula should appear here: } x = \frac {-b \pm \sqrt {b^2 - 4ac}}{2a}$$</p><p>\[\text{The cubic equation should appear here: } a x^3\; +\; b x^2\; +\; c x\; +\; d\; =\; 0\]</p></div>',
+      '#markup' => '<div class="tex2jax_process"><p>If the MathJax library is installed properly, you should see the square root of x here: $ \sqrt{x} $ and the square root of y here: \(\sqrt{y}\)</p><p>$$\text{The quadratic formula should appear here: } x = \frac {-b \pm \sqrt {b^2 - 4ac}}{2a}$$</p><p>\[\text{The cubic equation should appear here: } a x^3\; +\; b x^2\; +\; c x\; +\; d\; =\; 0\]</p></div>',
     );
 
     $form['use_cdn'] = array(
