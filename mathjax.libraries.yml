@@ -1,7 +1,19 @@
-mathjax:
+setup:
   version: VERSION
   js:
-    js/mathjax.js: {}
+    js/setup.js: {}
   dependencies:
     - core/jquery
+    - core/drupal
+
+source:
+  version: VERSION
+  js:
+    MathJax.js: {every_page: true, type: external}
+
+config:
+  version: VERSION
+  js:
+    js/config.js: {every_page: true, weight: -50}
+  dependencies:
     - core/drupal

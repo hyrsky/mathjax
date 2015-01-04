@@ -57,8 +57,9 @@ class MathjaxWebTest extends WebTestBase {
     // Initial text on form load.
     $this->drupalGet($path);
     $config = Drupal::config('mathjax.settings');
-    $this->assertRaw($config->get('cdn_url', 'Default CDN URL found.'));
-    $this->assertRaw($config->get('default_config_string', 'Default configuration string found.'));
+    $this->assertRaw($config->get('cdn_url'));
+    $this->assertRaw('modules/mathjax/js/config.js');
+    $this->assertRaw('modules/mathjax/js/setup.js');
   }
 
   /**
@@ -79,14 +80,7 @@ class MathjaxWebTest extends WebTestBase {
     $this->assertText('Configuration Type');
     $this->assertFieldByName('config_type', 0);
 
-    $custom = "MathJax.Hub.Config({
-      extensions: ['tex2jax.js'],
-      jax: ['input/TeX','output/HTML-CSS'],
-      tex2jax: {
-        inlineMath: [ ['$','$'], ['\\\\(','\\\\)'] ],
-        processEscapes: false
-      }
-    });";
+    $custom = '{"tex2jax":{"inlineMath":[["#","#"],["\\(","\\)"]],"processEscapes":"true"},"showProcessingMessages":"false","messageStyle":"none"}';
     $path = 'admin/config/content/mathjax';
     $edit = array(
       'config_type' => 1,
@@ -94,14 +88,8 @@ class MathjaxWebTest extends WebTestBase {
     );
 
     $this->drupalPostForm($path, $edit, t('Save configuration'));
-    $this->assertText('Enter a JavaScript configuration string as documented');
-    $this->assertRaw($custom, 'Custom configuration string found.');
-
-    $edit = array(
-      'config_type' => 0,
-    );
-    $this->drupalPostForm($path, $edit, t('Save configuration'));
-    $this->assertRaw($config->get('default_config_string'), 'Default configuration string found.');
+    $this->assertText('Enter a JSON configuration string as documented');
+    $this->assertRaw(htmlentities($custom), 'Custom configuration string found.');
   }
 
   /**

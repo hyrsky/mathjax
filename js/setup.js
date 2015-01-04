@@ -1,6 +1,6 @@
 /**
  * @file
- * Javascript functions for MathJax.
+ * Javascript behaviors for MathJax.
  */
 
 (function ($, Drupal, document) {
@@ -21,4 +21,4 @@
     }
   };
 
-})(jQuery, Drupal, document);
+}(jQuery, Drupal, document));

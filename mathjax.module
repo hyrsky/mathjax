@@ -23,33 +23,34 @@ function mathjax_help($path, $arg) {
  */
 function mathjax_page_attachments(&$page) {
   $config = Drupal::config('mathjax.settings');
-  if ($config->get('config_type') == 0) {
+  $config_type = $config->get('config_type');
+  if ($config_type == 0) {
     $config_string = $config->get('default_config_string');
   }
   else {
     $config_string = $config->get('config_string');
   }
 
-  // Load Mathjax.
-  $page['#attached']['js'][] = array(
-    'type' => 'inline',
-    'data' => $config_string,
-    'every_page' => TRUE,
-    'weight' => -10,
-  );
-  $page['#attached']['library'][] = 'mathjax/mathjax';
-  $settings = ['mathjax' =>
-    ['config_type' => $config->get('config_type')]
+  $page['#attached']['drupalSettings']['mathjax'] = [
+    'config_type' => $config_type,
+    'config_string' => $config_string,
   ];
-  $page['#attached']['js'][] = array('data' => $settings, 'type' => 'setting');
+  $page['#attached']['library'][] = 'mathjax/config';
+  $page['#attached']['library'][] = 'mathjax/source';
+  $page['#attached']['library'][] = 'mathjax/setup';
+}
 
+/**
+ * Implements hook_js_alter().
+ */
+function mathjax_js_alter(&$javascript) {
+  $config = Drupal::config('mathjax.settings');
   if ($config->get('use_cdn', TRUE)) {
-    $cdn_url = $config->get('cdn_url');
-    $page['#attached']['js'][$cdn_url] = array('every_page' => TRUE, 'type' => 'external');
+    $javascript['MathJax.js']['data'] = $config->get('cdn_url');
   }
   else {
     if (function_exists('libraries_get_path')) {
-      $page['#attached']['js'][libraries_get_path('mathjax', TRUE) . '/MathJax.js?config=TeX-AMS-MML_HTMLorMML'] = array('every_page' => TRUE, 'type' => 'external');
+      $javascript['MathJax.js']['data'] = libraries_get_path('mathjax', TRUE) . '/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     }
   }
 }
