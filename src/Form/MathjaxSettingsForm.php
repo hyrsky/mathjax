@@ -49,13 +49,18 @@ class MathjaxSettingsForm extends ConfigFormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Use MathJax Content Delivery Network (CDN)'),
       '#default_value' => $config->get('use_cdn', TRUE),
-      '#description' => $this->t('Check this box to load MathJax source from MathJax servers (recommended) or from the link you can provide below.'),
+      '#description' => t('Check this box to load MathJax source from MathJax servers (recommended) or from the link you can provide below. If you do not check this box, see the README about configuring a local MathJax source with the libraries module.'),
     );
     $form['cdn_url'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('MathJax CDN URL'),
       '#default_value' => $config->get('cdn_url'),
       '#description' => $this->t("Enter the Mathjax CDN url here or leave it unchanged to use the one provided by <a target='_blank' href='@mathjax-homepage'>www.mathjax.org</a>.", array('@mathjax-homepage' => 'http://www.mathjax.org')),
+      '#states' => array(
+        'invisible' => array(
+          ':input[name="use_cdn"]' => array('checked' => FALSE),
+        ),
+      ),
     );
     $form['config_type'] = array(
       '#type' => 'radios',
