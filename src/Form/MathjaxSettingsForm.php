@@ -98,6 +98,24 @@ class MathjaxSettingsForm extends ConfigFormBase {
         ),
       ),
     );
+    $config_type = $config->get('config_type');
+    if ($config_type == 0) {
+      $config_string = $config->get('default_config_string');
+    }
+    else {
+      $config_string = $config->get('config_string');
+    }
+    $form['#attached'] = [
+      'library' => [
+        'mathjax/source',
+      ],
+      'drupalSettings' => [
+        'mathjax' => [
+          'config_type' => $config_type,
+          'config' => json_decode($config_string),
+        ]
+      ]
+    ];
     return parent::buildForm($form, $form_state);
   }
 

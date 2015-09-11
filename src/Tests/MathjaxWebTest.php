@@ -12,8 +12,17 @@ use Drupal;
 
 /**
  * Configuration test case for the module.
+ *
+ * @group MathJax
  */
 class MathjaxWebTest extends WebTestBase {
+
+  /**
+   * An administrator.
+   *
+   * @var Drupal\user\UserInterface
+   */
+  protected $administrator;
 
   /**
    * Provide info on these tests to the admin interface.
@@ -46,20 +55,6 @@ class MathjaxWebTest extends WebTestBase {
       'access administration pages',
       'administer site configuration',
     ));
-  }
-
-  /**
-   * Test the default configuration.
-   */
-  public function testDefaults() {
-    $path = '<front>';
-
-    // Initial text on form load.
-    $this->drupalGet($path);
-    $config = Drupal::config('mathjax.settings');
-    $this->assertRaw($config->get('cdn_url'));
-    $this->assertRaw('modules/mathjax/js/config.js');
-    $this->assertRaw('modules/mathjax/js/setup.js');
   }
 
   /**

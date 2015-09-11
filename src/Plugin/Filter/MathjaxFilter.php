@@ -35,20 +35,22 @@ class MathjaxFilter extends FilterBase {
     $wrapped = '<div class="tex2jax_process">' . $text . '</div>';
     $result = new FilterProcessResult($wrapped);
     $config = \Drupal::config('mathjax.settings');
-    $result->setAttachments([
-      'library' => [
-        'mathjax/config',
-        'mathjax/source',
-        'mathjax/setup',
-      ],
-      'drupalSettings' => [
-        'mathjax' => [
-          'config_type' => 0,
-          'config' => json_decode($config->get('default_config_string')),
+    $config_type = $config->get('config_type');
+    if ($config_type == 0) {
+      $result->setAttachments([
+        'library' => [
+          'mathjax/config',
+          'mathjax/source',
+          'mathjax/setup',
+        ],
+        'drupalSettings' => [
+          'mathjax' => [
+            'config_type' => $config_type,
+            'config' => json_decode($config->get('default_config_string')),
+          ]
         ]
-      ]
-    ]);
-
+      ]);
+    }
     return $result;
   }
 
