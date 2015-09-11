@@ -1,11 +1,13 @@
 /**
  * @file
- * Stages the MathJax configuration.
+ * Javascript behaviors for MathJax.
  */
+
+/*global MathJax, window, drupalSettings*/
 
 (function (settings) {
 
   "use strict";
-  window.MathJax = JSON.parse(settings.mathjax.config_string);
+  window.MathJax = settings.mathjax.config;
 
 }(drupalSettings));
