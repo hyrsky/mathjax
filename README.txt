@@ -44,7 +44,7 @@ Using a local copy of MathJax (relies on libraries module)
      Download MathJax source from the MathJax website.
      Un-archive it into your "libraries" directory.
      You may need to create the "libraries" directory first.
-     Rename it to "mathjax" (lower case).
+     Rename it to "MathJax".
 Relying on the libraries module to locate the 'mathjax' directory allows you to place
 it in a site-specific diretory (e.g. sites/mysite/libraries) or in the default directory
 (libraries). Site-specific versions are selected preferentially.

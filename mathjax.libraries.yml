@@ -2,12 +2,6 @@ config:
   version: VERSION
   js:
     js/config.js: {}
-source:
-  version: VERSION
-  js:
-    MathJax.js: {type: external}
-  dependencies:
-    - mathjax/config
 setup:
   version: VERSION
   js:

@@ -36,16 +36,37 @@ function mathjax_page_attachments(&$page) {
 }
 
 /**
- * Implements hook_js_alter().
+ * Implements hook_library_info_build().
  */
-function mathjax_js_alter(&$javascript) {
+function mathjax_library_info_build() {
   $config = Drupal::config('mathjax.settings');
-  if ($config->get('use_cdn', TRUE)) {
-    $javascript['MathJax.js']['data'] = $config->get('cdn_url');
+  $libraries = [];
+  $libraries['source'] = [
+    'dependencies' => [
+      'mathjax/config',
+    ],
+    'remote' => 'https://www.mathjax.org/',
+    'license' => [
+      'name' => 'Apache',
+      'url' => 'http://cdn.mathjax.org/mathjax/2.0-latest/LICENSE',
+      'gpl-compatible' => TRUE,
+    ],
+  ];
+  if ($config->get('use_cdn', TRUE) == FALSE && function_exists('libraries_get_path')) {
+    $libraries['source']['js'] = [
+      libraries_get_path('MathJax', TRUE) . '/MathJax.js?config=TeX-AMS-MML_HTMLorMML' => [
+        'type' => 'external',
+        'minified' => TRUE,
+      ]
+    ];
   }
   else {
-    if (function_exists('libraries_get_path')) {
-      $javascript['MathJax.js']['data'] = libraries_get_path('mathjax', TRUE) . '/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    }
+    $libraries['source']['js'] = [
+      $config->get('cdn_url') => [
+        'type' => 'external',
+        'minified' => TRUE,
+      ]
+    ];
   }
+  return $libraries;
 }

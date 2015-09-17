@@ -43,7 +43,7 @@ function mathjax_requirements($phase) {
  */
 function _mathjax_library_present() {
   if (function_exists('libraries_get_path')) {
-    $mathjax_path = libraries_get_path('mathjax');
+    $mathjax_path = libraries_get_path('MathJax');
     $jspath = $mathjax_path . '/MathJax.js';
     $jsp = file_exists($jspath);
     return $jsp;
