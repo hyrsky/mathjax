@@ -52,7 +52,7 @@ function mathjax_library_info_build() {
       'gpl-compatible' => TRUE,
     ],
   ];
-  if ($config->get('use_cdn', TRUE) == FALSE && function_exists('libraries_get_path')) {
+  if ($config->get('use_cdn') == FALSE && function_exists('libraries_get_path')) {
     $libraries['source']['js'] = [
       libraries_get_path('MathJax', TRUE) . '/MathJax.js?config=TeX-AMS-MML_HTMLorMML' => [
         'type' => 'external',
