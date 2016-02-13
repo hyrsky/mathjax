@@ -4,17 +4,18 @@
  * MathJax module.
  */
 
+use Drupal\Core\Routing\RouteMatchInterface;
+
 /**
  * Implements hook_help().
  */
-function mathjax_help($path, $arg) {
-  switch ($path) {
-    // Main module help for the mathjax module.
-    case 'admin/config/content/mathjax':
-      return t('MathJax allows you to include mathematics in your web pages, either using TeX and LaTeX notation, or as MathML, and you can even use both in the same document. Go to the <a href="@url">MathJax website</a> for more information.', array('@url' => url('http://www.mathjax.org/')));
+function mathjax_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'mathjax.settings':
+      return t('MathJax allows you to include mathematics in your web pages, either using TeX and LaTeX notation, or as MathML, and you can even use both in the same document. Go to the <a href=":url">MathJax website</a> for more information.', [':url' => 'http://www.mathjax.org/']);
 
-    case 'admin/help#mathjax':
-      return '<p>' . t('MathJax allows you to include mathematics in your web pages, either using TeX and LaTeX notation, or as MathML, and you can even use both in the same document. Go to the <a href="@url">MathJax website</a> for more information.', array('@url' => url('http://www.mathjax.org/'))) . '</p>';
+    case 'help.page.mathjax':
+      return '<p>' . t('MathJax allows you to include mathematics in your web pages, either using TeX and LaTeX notation, or as MathML, and you can even use both in the same document. Go to the <a href=":url">MathJax website</a> for more information.', [':url' => 'http://www.mathjax.org/']) . '</p>';
   }
 }
 
@@ -57,7 +58,7 @@ function mathjax_library_info_build() {
       libraries_get_path('MathJax', TRUE) . '/MathJax.js?config=TeX-AMS-MML_HTMLorMML' => [
         'type' => 'external',
         'minified' => TRUE,
-      ]
+      ],
     ];
   }
   else {
@@ -65,7 +66,7 @@ function mathjax_library_info_build() {
       $config->get('cdn_url') => [
         'type' => 'external',
         'minified' => TRUE,
-      ]
+      ],
     ];
   }
   return $libraries;
