@@ -3,11 +3,11 @@
  * Javascript behaviors for MathJax.
  */
 
-/*global MathJax, window, drupalSettings*/
+/* global window, drupalSettings */
 
-(function (settings) {
+(function (window, settings) {
 
-  "use strict";
+  'use strict';
   window.MathJax = settings.mathjax.config;
 
-}(drupalSettings));
+}(window, drupalSettings));
