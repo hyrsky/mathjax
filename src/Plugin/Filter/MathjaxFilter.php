@@ -11,6 +11,7 @@ use Drupal\filter\Annotation\Filter;
 use Drupal\Core\Annotation\Translation;
 use Drupal\filter\Plugin\FilterBase;
 use Drupal\filter\FilterProcessResult;
+use Drupal\Core\Url;
 
 /**
  * Provides a filter to format text with Mathjax.
@@ -47,8 +48,8 @@ class MathjaxFilter extends FilterBase {
           'mathjax' => [
             'config_type' => $config_type,
             'config' => json_decode($config->get('default_config_string')),
-          ]
-        ]
+          ],
+        ],
       ]);
     }
     return $result;
@@ -58,10 +59,11 @@ class MathjaxFilter extends FilterBase {
    * {@inheritdoc}
    */
   public function tips($long = FALSE) {
-    return $this->t('<span class="tex2jax_ignore">Mathematics inside the <a href="@url">configured delimiters</a> is
+    return $this->t('<span class="tex2jax_ignore">Mathematics inside the <a href=":url">configured delimiters</a> is
       rendered by MathJax. The default math delimiters are $$...$$ and \[...\] for
       displayed mathematics, and $...$ and \(...\) for in-line mathematics.</span>',
-        array('@url' => \Drupal::url('mathjax.settings'))
+        array(':url' => Url::fromRoute('mathjax.settings')->toString())
     );
   }
+
 }

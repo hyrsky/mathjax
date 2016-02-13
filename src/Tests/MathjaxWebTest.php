@@ -120,4 +120,5 @@ class MathjaxWebTest extends WebTestBase {
     $result = $this->xpath("//table[@id='filter-order']/tbody/tr[$count]/td[1]");
     $this->assertEqual($result[0]->__toString(), 'MathJax');
   }
+
 }

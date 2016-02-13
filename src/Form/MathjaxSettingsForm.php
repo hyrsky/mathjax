@@ -9,6 +9,7 @@ namespace Drupal\mathjax\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Presents the module settings form.
@@ -47,14 +48,14 @@ class MathjaxSettingsForm extends ConfigFormBase {
     $form['use_cdn'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Use MathJax Content Delivery Network (CDN)'),
-      '#default_value' => $config->get('use_cdn', TRUE),
+      '#default_value' => $config->get('use_cdn'),
       '#description' => t('Check this box to load MathJax source from MathJax servers (recommended) or from the link you can provide below. If you do not check this box, see the README about configuring a local MathJax source with the libraries module.'),
     );
     $form['cdn_url'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('MathJax CDN URL'),
       '#default_value' => $config->get('cdn_url'),
-      '#description' => $this->t("Enter the Mathjax CDN url here or leave it unchanged to use the one provided by <a target='_blank' href='@mathjax-homepage'>www.mathjax.org</a>.", array('@mathjax-homepage' => 'http://www.mathjax.org')),
+      '#description' => $this->t("Enter the Mathjax CDN url here or leave it unchanged to use the one provided by <a target='_blank' href=':url'>www.mathjax.org</a>.", array(':url' => 'http://www.mathjax.org')),
       '#states' => array(
         'invisible' => array(
           ':input[name="use_cdn"]' => array('checked' => FALSE),
@@ -65,7 +66,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
       '#type' => 'radios',
       '#title' => $this->t('Configuration Type'),
       '#options' => array(
-        0 => $this->t('Text Format (Recommended&mdash;Add the MathJax filter to a <a href="@textformats">text format</a>.)', array('@textformats' => $this->url('filter.admin_overview'))),
+        0 => $this->t('Text Format (Recommended&mdash;Add the MathJax filter to a <a href=":textformats">text format</a>.)', array(':textformats' => Url::fromRoute('filter.admin_overview')->toString())),
         1 => $this->t('Custom'),
       ),
       '#default_value' => $config->get('config_type'),
@@ -78,8 +79,8 @@ class MathjaxSettingsForm extends ConfigFormBase {
       default delimiters will be rendered by MathJax. The
       default math delimiters are $$...$$ and \[...\] for displayed mathematics,
       and $...$ and \(...\) for in-line mathematics. <strong>You must add
-      the MathJax filter to a <a href="@textformats">text format</a> and put
-      MathJax at the bottom of the filter processing order.</strong>', array('@textformats' => $this->url('filter.admin_overview'))),
+      the MathJax filter to a <a href=":textformats">text format</a> and put
+      MathJax at the bottom of the filter processing order.</strong>', array(':textformats' => Url::fromRoute('filter.admin_overview')->toString())),
       '#suffix' => '</span>',
       '#states' => array(
         'invisible' => array(
@@ -91,7 +92,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
       '#type' => 'textarea',
       '#title' => $this->t('Custom configuration'),
       '#default_value' => ($config->get('config_string')) ? $config->get('config_string') : $config->get('default_config_string'),
-      '#description' => $this->t("Enter a JSON configuration string as documented on  <a target='_blank' href='@mathjax-help'>MathJax help</a>. Use with caution as you may introduce JavaScript errors.", array('@mathjax-help' => 'http://docs.mathjax.org/en/latest/')),
+      '#description' => $this->t("Enter a JSON configuration string as documented on  <a target='_blank' href=':mathjax-help'>MathJax help</a>. Use with caution as you may introduce JavaScript errors.", array(':mathjax-help' => 'http://docs.mathjax.org/en/latest/')),
       '#states' => array(
         'invisible' => array(
           ':input[name="config_type"]' => array('value' => 0),
@@ -113,8 +114,8 @@ class MathjaxSettingsForm extends ConfigFormBase {
         'mathjax' => [
           'config_type' => $config_type,
           'config' => json_decode($config_string),
-        ]
-      ]
+        ],
+      ],
     ];
     return parent::buildForm($form, $form_state);
   }
