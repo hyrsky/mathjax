@@ -32,7 +32,7 @@ class MathjaxFilter extends FilterBase {
    * {@inheritdoc}
    */
   public function process($text, $langcode) {
-    $wrapped = strip_tags($text) !== 'TEST' ? '<div class="tex2jax_process">' . $text . '</div>' : $text;
+    $wrapped = '<div class="tex2jax_process">' . $text . '</div>';
     $result = new FilterProcessResult($wrapped);
     $config = \Drupal::config('mathjax.settings');
     $config_type = $config->get('config_type');
