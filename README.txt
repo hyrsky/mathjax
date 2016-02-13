@@ -60,3 +60,10 @@ MAINTAINER(S)
 =============
 2013: Chris McCafferty (cilefen) https://drupal.org/u/cilefen
 2014: P. Magunia (pmagunia) https://www.drupal.org/u/pmagunia
+
+LEGAL
+=====
+MathJax CDN services are provided subject to its Terms of Service (TOS). By
+accessing and using the MathJax CDN, you accept and agree to be bound by the
+terms and provisions of the TOS:
+https://www.mathjax.org/mathjax-cdn-terms-of-service/
