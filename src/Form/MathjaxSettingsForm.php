@@ -130,7 +130,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
         ->set('config_type', $form_state->getValue('config_type'))
         ->set('config_string', $form_state->getValue('config_string'))
         ->save();
-
+    drupal_flush_all_caches();
     parent::submitForm($form, $form_state);
   }
 

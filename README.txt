@@ -33,23 +33,19 @@ Using the MathJax CDN (recommended)
    administration screen.
 
 
-Using a local copy of MathJax (relies on libraries module)
-----------------------------------------------------------
+Using a local copy of MathJax
+-----------------------------
 
 1. Install and enable this module.
 
-2. Install and enable "libraries". See http://drupal.org/project/libraries.
-
-3. Install the third-party MathJax software:
+2. Install the third-party MathJax software:
      Download MathJax source from the MathJax website.
      Un-archive it into your "libraries" directory.
      You may need to create the "libraries" directory first.
-     Rename it to "MathJax".
-Relying on the libraries module to locate the 'mathjax' directory allows you to place
-it in a site-specific diretory (e.g. sites/mysite/libraries) or in the default directory
-(libraries). Site-specific versions are selected preferentially.
+     Rename it to "MathJax". When finished you should have this structure:
+     `/libraries/MathJax/MathJax.js`
 
-4. Follow from step #2 above.
+3. Follow from step #2 above.
 
 ORIGINAL AUTHOR
 ===============
