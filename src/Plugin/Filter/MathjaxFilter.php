@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\mathjax\Plugin\Filter\MathjaxFilter.
- */
-
 namespace Drupal\mathjax\Plugin\Filter;
 
 use Drupal\filter\Plugin\FilterBase;

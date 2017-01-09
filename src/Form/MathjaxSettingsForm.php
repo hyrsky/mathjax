@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\mathjax\Form\MathjaxSettingsForm.
- */
-
 namespace Drupal\mathjax\Form;
 
 use Drupal\Core\Form\ConfigFormBase;

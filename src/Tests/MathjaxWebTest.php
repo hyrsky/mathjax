@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\mathjax\Tests\MathjaxWebTest.
- */
-
 namespace Drupal\mathjax\Tests;
 
 use Drupal\simpletest\WebTestBase;
