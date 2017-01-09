@@ -21,14 +21,6 @@ function mathjax_requirements($phase) {
           'severity' => REQUIREMENT_ERROR,
         );
       }
-      if (!function_exists('libraries_get_path')) {
-        $requirements['mathjax_libraries_dependency'] = array(
-          'title' => t('MathJax'),
-          'value' => t('Missing libraries module'),
-          'description' => t("MathJax is configured to use local library files but the libraries module is not enabled. See the README."),
-          'severity' => REQUIREMENT_ERROR,
-        );
-      }
     }
   }
 
@@ -42,11 +34,6 @@ function mathjax_requirements($phase) {
  *   True if MathJax is installed
  */
 function _mathjax_library_present() {
-  if (function_exists('libraries_get_path')) {
-    $mathjax_path = libraries_get_path('MathJax');
-    $jspath = $mathjax_path . '/MathJax.js';
-    $jsp = file_exists($jspath);
-    return $jsp;
-  }
-  return FALSE;
+  $path = Drupal::root() . '/libraries/MathJax/MathJax.js';
+  return file_exists($path);
 }

@@ -93,7 +93,6 @@ class MathjaxWebTest extends WebTestBase {
   public function testLibraryDetection() {
     $this->drupalLogin($this->administrator);
     $this->drupalGet('admin/reports/status');
-    $this->assertNoText('MathJax is configured to use local library files but the libraries module is not enabled. See the README.');
     $this->assertNoText('MathJax is configured to use local library files but they could not be found. See the README.');
     $this->drupalGet('admin/config/content/mathjax');
     $edit = array(
@@ -101,7 +100,6 @@ class MathjaxWebTest extends WebTestBase {
     );
     $this->drupalPostForm(NULL, $edit, t('Save configuration'));
     $this->drupalGet('admin/reports/status');
-    $this->assertText('MathJax is configured to use local library files but the libraries module is not enabled. See the README.');
     $this->assertText('MathJax is configured to use local library files but they could not be found. See the README.');
   }
 
