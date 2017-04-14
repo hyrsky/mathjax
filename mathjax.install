@@ -37,3 +37,18 @@ function _mathjax_library_present() {
   $path = Drupal::root() . '/libraries/MathJax/MathJax.js';
   return file_exists($path);
 }
+
+/**
+ * Update the CDN URL.
+ */
+function mathjax_update_8201() {
+    $config_factory = \Drupal::configFactory();
+    $config = $config_factory->getEditable('mathjax.settings');
+    $url = $config->get('cdn_url');
+    $new = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js';
+    $old = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js';
+    if (strpos($url, $old) !== FALSE) {
+        $url = str_replace($old, $new, $url);
+        $config->set('cdn_url', $url)->save(TRUE);
+    }
+}
