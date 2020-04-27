@@ -7,10 +7,10 @@ use Drupal\filter\FilterProcessResult;
 use Drupal\Core\Url;
 
 /**
- * Provides a filter to format text with Mathjax.
+ * Provides a filter to format text with MathJax.
  *
  * Wraps the text in a div with a class name that is looked-for
- * by the Mathjax Javascript library.
+ * by the MathJax Javascript library.
  *
  * @Filter(
  *   id = "filter_mathjax",
@@ -22,6 +22,7 @@ use Drupal\Core\Url;
  * )
  */
 class MathjaxFilter extends FilterBase {
+
   /**
    * {@inheritdoc}
    */
@@ -55,7 +56,7 @@ class MathjaxFilter extends FilterBase {
     return $this->t('<span class="tex2jax_ignore">Mathematics inside the <a href=":url">configured delimiters</a> is
       rendered by MathJax. The default math delimiters are $$...$$ and \[...\] for
       displayed mathematics, and $...$ and \(...\) for in-line mathematics.</span>',
-        array(':url' => Url::fromRoute('mathjax.settings')->toString())
+        [':url' => Url::fromRoute('mathjax.settings')->toString()]
     );
   }
 
