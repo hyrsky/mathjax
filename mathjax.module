@@ -25,6 +25,12 @@ function mathjax_help($route_name, RouteMatchInterface $route_match) {
  */
 function mathjax_page_attachments(&$page) {
   $config = Drupal::config('mathjax.settings');
+
+  // Exit if MathJax is not allowed on admin pages and we are on an admin page.
+  if (!$config->get('enable_for_admin') && \Drupal::service('router.admin_context')->isAdminRoute()) {
+    return;
+  }
+
   $config_type = $config->get('config_type');
   if ($config_type == 1) {
     $page['#attached']['drupalSettings']['mathjax'] = [

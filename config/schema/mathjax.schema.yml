@@ -17,3 +17,6 @@ mathjax.settings:
     config_string:
       type: string
       label: 'Current configuration'
+    enable_for_admin:
+      type: integer
+      label: 'Enable on admin pages'

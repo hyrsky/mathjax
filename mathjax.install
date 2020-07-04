@@ -53,3 +53,12 @@ function mathjax_update_8201() {
     $config->set('cdn_url', $url)->save(TRUE);
   }
 }
+
+/**
+ * Enable on admin to preserve backwards compatibility.
+ */
+function mathjax_update_8202() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('mathjax.settings');
+  $config->set('enable_for_admin', 1)->save(TRUE);
+}

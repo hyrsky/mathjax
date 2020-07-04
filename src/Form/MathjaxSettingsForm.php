@@ -112,6 +112,14 @@ class MathjaxSettingsForm extends ConfigFormBase {
         ],
       ],
     ];
+
+    $form['enable_for_admin'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable on admin pages.'),
+      '#description' => $this->t('Embeds the MathJax code on admin pages.'),
+      '#default_value' => $config->get('enable_for_admin'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -124,6 +132,7 @@ class MathjaxSettingsForm extends ConfigFormBase {
       ->set('cdn_url', $form_state->getValue('cdn_url'))
       ->set('config_type', $form_state->getValue('config_type'))
       ->set('config_string', $form_state->getValue('config_string'))
+        ->set('enable_for_admin', $form_state->getValue('enable_for_admin'))
       ->save();
     drupal_flush_all_caches();
     parent::submitForm($form, $form_state);
