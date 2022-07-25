@@ -67,16 +67,16 @@ class MathjaxWebTest extends BrowserTestBase {
     $config = Drupal::config('mathjax.settings');
     $this->drupalLogin($this->administrator);
     $this->drupalGet('admin/config');
-    $this->assertSession()->pageTextContains('Configure global settings for MathJax.');
+    $this->assertText('Configure global settings for MathJax.');
     $this->drupalGet('admin/config/content/formats/add');
-    $this->assertSession()->pageTextContains('Mathematics inside the configured delimiters is rendered by MathJax');
+    $this->assertText('Mathematics inside the configured delimiters is rendered by MathJax');
     $this->drupalGet('admin/config/content/mathjax');
-    $this->assertSession()->titleEquals('MathJax | Drupal');
-    $this->assertSession()->pageTextContains('MathJax CDN URL');
-    $this->assertSession()->fieldValueEquals('cdn_url', $config->get('cdn_url'));
-    $this->assertSession()->pageTextContains('Enter the MathJax CDN url here or leave it unchanged to use the one provided by www.mathjax.org.');
-    $this->assertSession()->pageTextContains('Configuration Type');
-    $this->assertSession()->fieldValueEquals('config_type', 0);
+    $this->assertTitle('MathJax | Drupal');
+    $this->assertText('MathJax CDN URL');
+    $this->assertFieldByName('cdn_url', $config->get('cdn_url'));
+    $this->assertText('Enter the MathJax CDN url here or leave it unchanged to use the one provided by www.mathjax.org.');
+    $this->assertText('Configuration Type');
+    $this->assertFieldByName('config_type', 0);
 
     $custom = '{"tex2jax":{"inlineMath":[["#","#"],["\\(","\\)"]],"processEscapes":"true"},"showProcessingMessages":"false","messageStyle":"none"}';
     $path = 'admin/config/content/mathjax';
@@ -84,11 +84,10 @@ class MathjaxWebTest extends BrowserTestBase {
       'config_type' => 1,
       'config_string' => $custom,
     ];
-    $this->drupalGet($path);
 
-    $this->submitForm($edit, t('Save configuration'));
-    $this->assertSession()->pageTextContains('Enter a JSON configuration string as documented');
-    $this->assertSession()->responseContains(htmlentities($custom));
+    $this->drupalPostForm($path, $edit, t('Save configuration'));
+    $this->assertText('Enter a JSON configuration string as documented');
+    $this->assertRaw(htmlentities($custom));
   }
 
   /**
@@ -97,14 +96,14 @@ class MathjaxWebTest extends BrowserTestBase {
   public function testLibraryDetection() {
     $this->drupalLogin($this->administrator);
     $this->drupalGet('admin/reports/status');
-    $this->assertSession()->pageTextNotContains('MathJax is configured to use local library files but they could not be found. See the README.');
+    $this->assertNoText('MathJax is configured to use local library files but they could not be found. See the README.');
     $this->drupalGet('admin/config/content/mathjax');
     $edit = [
       'use_cdn' => FALSE,
     ];
-    $this->submitForm($edit, t('Save configuration'));
+    $this->drupalPostForm(NULL, $edit, t('Save configuration'));
     $this->drupalGet('admin/reports/status');
-    $this->assertSession()->pageTextContains('MathJax is configured to use local library files but they could not be found. See the README.');
+    $this->assertText('MathJax is configured to use local library files but they could not be found. See the README.');
   }
 
   /**
@@ -115,12 +114,12 @@ class MathjaxWebTest extends BrowserTestBase {
     // Activate the MathJax filter on the plain_text format.
     $this->drupalGet('admin/config/content/formats/manage/plain_text');
     $edit = ['filters[filter_mathjax][status]' => TRUE];
-    $this->submitForm($edit, t('Save configuration'));
+    $this->drupalPostForm(NULL, $edit, t('Save configuration'));
     $this->drupalGet('admin/config/content/formats/manage/plain_text');
     // Ensure that MathJax appears at the bottom of the active filter list.
     $count = count($this->xpath("//div[@id='edit-filters-status']/div/input[@class='form-checkbox' and @checked='checked']"));
     $result = $this->xpath("//table[@id='filter-order']/tbody/tr[$count]/td[1]");
-    $this->assertEquals($result[0]->getText(), 'MathJax');
+    $this->assertEqual($result[0]->getText(), 'MathJax');
   }
 
 }
