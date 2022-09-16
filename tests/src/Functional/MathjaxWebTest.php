@@ -43,7 +43,7 @@ class MathjaxWebTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = ['mathjax', 'filter'];
+  protected static $modules = ['mathjax', 'filter'];
 
   /**
    * Set up the test environment.
