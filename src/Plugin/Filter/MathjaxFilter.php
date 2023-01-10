@@ -17,7 +17,7 @@ use Drupal\Core\Url;
  *   module = "mathjax",
  *   title = @Translation("MathJax"),
  *   description = @Translation("Mathematics inside the configured delimiters is rendered by MathJax."),
- *   type = Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
+ *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_REVERSIBLE,
  *   weight = 50
  * )
  */
