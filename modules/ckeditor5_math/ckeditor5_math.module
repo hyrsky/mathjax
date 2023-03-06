@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Module file for the CKEditor Media Embed plugin module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function ckeditor5_math_help($route_name, RouteMatchInterface $route_match)
+{
+  switch ($route_name) {
+    case 'help.page.ckeditor5_math':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>';
+      $output .= t(
+        'The CKEditor module adds support for CKEditor plugin <a href=":math" target="_blank">math</a>.',
+        [
+          ':math' => 'https://github.com/isaul32/ckeditor5-math',
+        ]
+      );
+      $output .= '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_editor_js_settings_alter().
+ */
+function ckeditor5_math_editor_js_settings_alter(array &$settings)
+{
+  $config = \Drupal::config('mathjax.settings');
+
+  $settings['mathjax'] = [
+    'config_type' => $config->get('config_type'),
+    'config' => json_decode($config->get('config_string')),
+  ];
+}

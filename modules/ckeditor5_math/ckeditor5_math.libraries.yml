@@ -1,0 +1,13 @@
+math:
+  js:
+    js/build/ckeditor5_math.js: { preprocess: false, minified: true }
+  dependencies:
+    - ckeditor5/ckeditor5
+    - mathjax/config
+    - mathjax/source
+    - mathjax/setup
+
+math.admin:
+  css:
+    theme:
+      css/build/ckeditor5_math.admin.css: {}
